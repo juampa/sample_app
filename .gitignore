@@ -8,4 +8,5 @@ doc/api
 doc/app
 *.swp
 *~
+app/**/#*
 .DS_Store
