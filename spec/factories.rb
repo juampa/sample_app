@@ -6,9 +6,10 @@ Factory.define :user do |user|
   user.password_confirmation "foobar"
 end
 
-Factory.define :niluser do |user|
-  user.name                  ""
-  user.email                 ""
-  user.password              ""
-  user.password_confirmation ""
+Factory.sequence :name do |n|
+  "Person #{n}"
+end
+
+Factory.sequence :email do |n|
+  "person-#{n}@example.com"
 end
