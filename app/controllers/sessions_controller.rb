@@ -1,5 +1,9 @@
 class SessionsController < ApplicationController
   
+
+  # esto solo funciona en rails 3.1
+  #force_ssl :only => :new
+
   def new
     @title = "Sign in"
   end

@@ -5,3 +5,10 @@ Factory.define :user do |user|
   user.password              "foobar"
   user.password_confirmation "foobar"
 end
+
+Factory.define :niluser do |user|
+  user.name                  ""
+  user.email                 ""
+  user.password              ""
+  user.password_confirmation ""
+end
