@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_filter :authenticate, :only => [:index, :edit, :update, :destroy]
   before_filter :correct_user, :only => [:edit, :update]
   before_filter :admin_user,   :only => :destroy
+  before_filter :signin_users_cant, :only => [:new,:create]
 
   def index 
     @title = "All users"
@@ -49,13 +50,22 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User destroyed."
+    user_to_destroy = User.find(params[:id])
+    if not current_user?(user_to_destroy) 
+      user_to_destroy.destroy
+      flash[:success] = "User destroyed."
+    else
+      flash[:notice] = "Admin users cant destroy themselves"
+    end
     redirect_to users_path
   end
 
   private
   
+    def signin_users_cant
+      redirect_to(root_path) unless not signed_in?
+    end
+
     def authenticate
       deny_access unless signed_in?
     end
